@@ -21,7 +21,13 @@ initSocket(server);
 connectDB();
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+  origin: ['https://lift-flow-frontend.vercel.app', 'http://localhost:5173'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true
+}));
+app.options('*', cors());
+
 app.use(express.json());
 
 app.get('/', (req, res) => {
