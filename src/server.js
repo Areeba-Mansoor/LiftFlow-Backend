@@ -1,4 +1,3 @@
-// server.js
 import express from 'express';
 import http from 'http';
 import cors from 'cors';
@@ -16,7 +15,6 @@ dotenv.config();
 const app = express();
 const server = http.createServer(app);
 
-// Initialize Socket.io
 initSocket(server);
 
 // Connect Database
@@ -26,7 +24,6 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
-// Root Route (Prevents "Cannot GET /" error)
 app.get('/', (req, res) => {
   res.json({ message: 'LiftFlow Backend is running successfully!' });
 });
@@ -35,11 +32,14 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/tickets', ticketRoutes);
 
-// Error Handling Middleware (Always put this after all routes)
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
-server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  server.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+export default app;
