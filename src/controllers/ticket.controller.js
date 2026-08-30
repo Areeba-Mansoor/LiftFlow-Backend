@@ -1,5 +1,5 @@
 import Ticket from '../models/Ticket.js';
-import User from '../models/User.js';
+import User from '../models/AppUser.js';
 
 // Create a new ticket (Customer)
 export const createTicket = async (req, res) => {
