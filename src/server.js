@@ -26,7 +26,12 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
-// Routes
+// Root Route (Prevents "Cannot GET /" error)
+app.get('/', (req, res) => {
+  res.json({ message: 'LiftFlow Backend is running successfully!' });
+});
+
+// API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/tickets', ticketRoutes);
 
